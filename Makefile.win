@@ -1,0 +1,36 @@
+# Project: ExpCalc
+# Makefile created by Dev-C++ 5.4.0
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+RES      = obj/ExpCalc_private.res
+OBJ      = obj/WinMain.o obj/ExpCalcProc.o $(RES)
+LINKOBJ  = obj/WinMain.o obj/ExpCalcProc.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -mwindows -g3
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
+BIN      = bin/ExpCalc.exe
+CXXFLAGS = $(CXXINCS)  -Ofast -w -g3
+CFLAGS   = $(INCS)  -Ofast -w -g3
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+obj/WinMain.o: WinMain.c
+	$(CC) -c WinMain.c -o obj/WinMain.o $(CFLAGS)
+
+obj/ExpCalcProc.o: ExpCalcProc.c
+	$(CC) -c ExpCalcProc.c -o obj/ExpCalcProc.o $(CFLAGS)
+
+obj/ExpCalc_private.res: ExpCalc_private.rc 
+	$(WINDRES) -i ExpCalc_private.rc --input-format=rc -o obj/ExpCalc_private.res -O coff 
